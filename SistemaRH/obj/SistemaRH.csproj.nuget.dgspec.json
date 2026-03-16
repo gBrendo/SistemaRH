@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PC_Admin\\Documents\\ProjetosEstudos2026\\SistemaRH\\SistemaRH\\SistemaRH.csproj": {}
+    "C:\\Users\\Brendo\\Documents\\PROJETOS 2026\\SistemaRH\\SistemaRH\\SistemaRH.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PC_Admin\\Documents\\ProjetosEstudos2026\\SistemaRH\\SistemaRH\\SistemaRH.csproj": {
+    "C:\\Users\\Brendo\\Documents\\PROJETOS 2026\\SistemaRH\\SistemaRH\\SistemaRH.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC_Admin\\Documents\\ProjetosEstudos2026\\SistemaRH\\SistemaRH\\SistemaRH.csproj",
+        "projectUniqueName": "C:\\Users\\Brendo\\Documents\\PROJETOS 2026\\SistemaRH\\SistemaRH\\SistemaRH.csproj",
         "projectName": "SistemaRH",
-        "projectPath": "C:\\Users\\PC_Admin\\Documents\\ProjetosEstudos2026\\SistemaRH\\SistemaRH\\SistemaRH.csproj",
-        "packagesPath": "C:\\Users\\PC_Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC_Admin\\Documents\\ProjetosEstudos2026\\SistemaRH\\SistemaRH\\obj\\",
+        "projectPath": "C:\\Users\\Brendo\\Documents\\PROJETOS 2026\\SistemaRH\\SistemaRH\\SistemaRH.csproj",
+        "packagesPath": "C:\\Users\\Brendo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Brendo\\Documents\\PROJETOS 2026\\SistemaRH\\SistemaRH\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\PC_Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Brendo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,23 +44,27 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.DotNet.ILCompiler": {
-              "suppressParent": "All",
+            "Microsoft.EntityFrameworkCore.Design": {
               "target": "Package",
-              "version": "[8.0.25, )",
-              "autoReferenced": true
+              "version": "[8.0.0, )"
             },
-            "Microsoft.NET.ILLink.Tasks": {
-              "suppressParent": "All",
+            "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[8.0.25, )",
-              "autoReferenced": true
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
             }
           },
           "imports": [
@@ -75,24 +78,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-              "version": "[8.0.25, 8.0.25]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Runtime.win-x64",
-              "version": "[8.0.25, 8.0.25]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-              "version": "[8.0.25, 8.0.25]"
-            },
-            {
-              "name": "runtime.win-x64.Microsoft.DotNet.ILCompiler",
-              "version": "[8.0.25, 8.0.25]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -101,12 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x64": {
-          "#import": []
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.104/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

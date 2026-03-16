@@ -16,7 +16,7 @@
         public int DepartamentoId { get; set; }
         public int CargoId { get; set; }
 
-        // Navegação — permite acessar os dados do Departamento e Cargo
+        // Navegação — permite acessar os dados do Departamento e Cargo relacionados a este funcionário
         public Departamento? Departamento { get; set; }
         public Cargo? Cargo { get; set; }
     }
