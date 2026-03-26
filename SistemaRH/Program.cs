@@ -1,6 +1,9 @@
 // Program.cs
 using Microsoft.EntityFrameworkCore;
 using SistemaRH.Data;
+using SistemaRH.Models;
+using SistemaRH.Repositories;
+using SistemaRH.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,13 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
+// Repositories
+builder.Services.AddScoped<IRepository<Departamento>, DepartamentoRepository>();
+builder.Services.AddScoped<IRepository<Cargo>, CargoRepository>();
+
+// Services
+builder.Services.AddScoped<DepartamentoService>();
+builder.Services.AddScoped<CargoService>();
 
 var app = builder.Build();
 
