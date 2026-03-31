@@ -5,6 +5,8 @@ using SistemaRH.Models;
 using SistemaRH.Repositories;
 using SistemaRH.Services;
 
+// app.UseStaticFiles(); 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Registra o banco de dados SQLite
