@@ -11,6 +11,7 @@
         public string Telefone { get; set; } = string.Empty;
         public DateTime DataAdmissao { get; set; }
         public decimal Salario { get; set; }
+        public bool Ativo { get; set; } = true;
 
         // Chaves estrangeiras (FK) — ligam ao Departamento e Cargo, criando relacionamento
         public int DepartamentoId { get; set; }
