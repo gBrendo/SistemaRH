@@ -1,6 +1,6 @@
 ﻿// Controllers/CargosController.cs
 using Microsoft.AspNetCore.Mvc;
-using SistemaRH.Models;
+using SistemaRH.DTOs;
 using SistemaRH.Services;
 
 namespace SistemaRH.Controllers;
@@ -32,11 +32,11 @@ public class CargosController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Criar(Cargo cargo)
+    public async Task<IActionResult> Criar(CargoInputDTO dto)
     {
         try
         {
-            var novo = await _service.CriarAsync(cargo);
+            var novo = await _service.CriarAsync(dto);
             return CreatedAtAction(nameof(ObterPorId), new { id = novo.Id }, novo);
         }
         catch (ArgumentException ex)
@@ -46,9 +46,9 @@ public class CargosController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Atualizar(int id, Cargo cargo)
+    public async Task<IActionResult> Atualizar(int id, CargoInputDTO dto)
     {
-        var atualizado = await _service.AtualizarAsync(id, cargo);
+        var atualizado = await _service.AtualizarAsync(id, dto);
         if (atualizado == null) return NotFound("Cargo não encontrado.");
         return Ok(atualizado);
     }

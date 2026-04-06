@@ -30,10 +30,12 @@ builder.Services.AddCors(options =>
 // Repositories
 builder.Services.AddScoped<IRepository<Departamento>, DepartamentoRepository>();
 builder.Services.AddScoped<IRepository<Cargo>, CargoRepository>();
+builder.Services.AddScoped<FuncionarioRepository>();
 
 // Services
 builder.Services.AddScoped<DepartamentoService>();
 builder.Services.AddScoped<CargoService>();
+builder.Services.AddScoped<FuncionarioService>();
 
 var app = builder.Build();
 

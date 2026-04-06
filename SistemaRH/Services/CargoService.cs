@@ -1,54 +1,71 @@
-﻿
-// Services/CargoService.cs
+﻿// Services/CargoService.cs
+using SistemaRH.DTOs;
 using SistemaRH.Models;
 using SistemaRH.Repositories;
 
-namespace SistemaRH.Services
+namespace SistemaRH.Services;
+
+public class CargoService
 {
-    /// <summary>
-    /// Aplica as regras de negocio para cargos
-    /// </summary>
-    public class CargoService
+    private readonly IRepository<Cargo> _repository;
+
+    public CargoService(IRepository<Cargo> repository)
     {
-        private readonly IRepository<Cargo> _repository;
+        _repository = repository;
+    }
 
-        public CargoService(IRepository<Cargo> repository)
+    public async Task<IEnumerable<CargoOutputDTO>> ObterTodosAsync()
+    {
+        var cargos = await _repository.ObterTodosAsync();
+        return cargos.Select(MapearParaOutputDTO);
+    }
+
+    public async Task<CargoOutputDTO?> ObterPorIdAsync(int id)
+    {
+        var cargo = await _repository.ObterPorIdAsync(id);
+        if (cargo == null) return null;
+        return MapearParaOutputDTO(cargo);
+    }
+
+    public async Task<CargoOutputDTO> CriarAsync(CargoInputDTO dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.Nome))
+            throw new ArgumentException("O nome do cargo é obrigatório.");
+
+        var cargo = new Cargo
         {
-            _repository = repository;
-        }
+            Nome = dto.Nome,
+            Descricao = dto.Descricao
+        };
 
-        public async Task<IEnumerable<Cargo>> ObterTodosAsync()
+        var criado = await _repository.CriarAsync(cargo);
+        return MapearParaOutputDTO(criado);
+    }
+
+    public async Task<CargoOutputDTO?> AtualizarAsync(int id, CargoInputDTO dto)
+    {
+        var cargo = await _repository.ObterPorIdAsync(id);
+        if (cargo == null) return null;
+
+        cargo.Nome = dto.Nome;
+        cargo.Descricao = dto.Descricao;
+
+        var atualizado = await _repository.AtualizarAsync(cargo);
+        return MapearParaOutputDTO(atualizado);
+    }
+
+    public async Task<bool> DeletarAsync(int id)
+    {
+        return await _repository.DeletarAsync(id);
+    }
+
+    private CargoOutputDTO MapearParaOutputDTO(Cargo c)
+    {
+        return new CargoOutputDTO
         {
-            return await _repository.ObterTodosAsync();
-        }
-
-        public async Task<Cargo?> ObterPorIdAsync(int id)
-        {
-            return await _repository.ObterPorIdAsync(id);
-        }
-
-        public async Task<Cargo> CriarAsync(Cargo cargo)
-        {
-            if (string.IsNullOrWhiteSpace(cargo.Nome))
-                throw new ArgumentException("O nome do cargo é obrigatorio.");
-
-            return await _repository.CriarAsync(cargo);
-        }
-
-        public async Task<Cargo?> AtualizarAsync(int id, Cargo cargoAtualizado)
-        {
-            var cargo = await _repository.ObterPorIdAsync(id);
-            if (cargo == null) return null;
-
-            cargo.Nome = cargoAtualizado.Nome;
-            cargo.Descricao = cargoAtualizado.Descricao;
-
-            return await _repository.AtualizarAsync(cargo);
-        }
-
-        public async Task<bool> DeletarAsync(int id)
-        {
-            return await _repository.DeletarAsync(id);
-        }
+            Id = c.Id,
+            Nome = c.Nome,
+            Descricao = c.Descricao
+        };
     }
 }

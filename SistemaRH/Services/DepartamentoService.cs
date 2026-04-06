@@ -1,13 +1,10 @@
 ﻿// Services/DepartamentoService.cs
+using SistemaRH.DTOs;
 using SistemaRH.Models;
 using SistemaRH.Repositories;
 
 namespace SistemaRH.Services;
 
-/// <summary>
-/// Aplica as regras de negócio para Departamentos.
-/// Faz a ponte entre o Controller e o Repository.
-/// </summary>
 public class DepartamentoService
 {
     private readonly IRepository<Departamento> _repository;
@@ -17,38 +14,58 @@ public class DepartamentoService
         _repository = repository;
     }
 
-    public async Task<IEnumerable<Departamento>> ObterTodosAsync()
+    public async Task<IEnumerable<DepartamentoOutputDTO>> ObterTodosAsync()
     {
-        return await _repository.ObterTodosAsync();
+        var departamentos = await _repository.ObterTodosAsync();
+        return departamentos.Select(MapearParaOutputDTO);
     }
 
-    public async Task<Departamento?> ObterPorIdAsync(int id)
+    public async Task<DepartamentoOutputDTO?> ObterPorIdAsync(int id)
     {
-        return await _repository.ObterPorIdAsync(id);
+        var departamento = await _repository.ObterPorIdAsync(id);
+        if (departamento == null) return null;
+        return MapearParaOutputDTO(departamento);
     }
 
-    public async Task<Departamento> CriarAsync(Departamento departamento)
+    public async Task<DepartamentoOutputDTO> CriarAsync(DepartamentoInputDTO dto)
     {
-        // Regra de negócio: nome não pode ser vazio
-        if (string.IsNullOrWhiteSpace(departamento.Nome))
+        if (string.IsNullOrWhiteSpace(dto.Nome))
             throw new ArgumentException("O nome do departamento é obrigatório.");
 
-        return await _repository.CriarAsync(departamento);
+        var departamento = new Departamento
+        {
+            Nome = dto.Nome,
+            Descricao = dto.Descricao
+        };
+
+        var criado = await _repository.CriarAsync(departamento);
+        return MapearParaOutputDTO(criado);
     }
 
-    public async Task<Departamento?> AtualizarAsync(int id, Departamento departamentoAtualizado)
+    public async Task<DepartamentoOutputDTO?> AtualizarAsync(int id, DepartamentoInputDTO dto)
     {
         var departamento = await _repository.ObterPorIdAsync(id);
         if (departamento == null) return null;
 
-        departamento.Nome = departamentoAtualizado.Nome;
-        departamento.Descricao = departamentoAtualizado.Descricao;
+        departamento.Nome = dto.Nome;
+        departamento.Descricao = dto.Descricao;
 
-        return await _repository.AtualizarAsync(departamento);
+        var atualizado = await _repository.AtualizarAsync(departamento);
+        return MapearParaOutputDTO(atualizado);
     }
 
     public async Task<bool> DeletarAsync(int id)
     {
         return await _repository.DeletarAsync(id);
+    }
+
+    private DepartamentoOutputDTO MapearParaOutputDTO(Departamento d)
+    {
+        return new DepartamentoOutputDTO
+        {
+            Id = d.Id,
+            Nome = d.Nome,
+            Descricao = d.Descricao
+        };
     }
 }

@@ -1,6 +1,6 @@
 ﻿// Controllers/DepartamentosController.cs
 using Microsoft.AspNetCore.Mvc;
-using SistemaRH.Models;
+using SistemaRH.DTOs;
 using SistemaRH.Services;
 
 namespace SistemaRH.Controllers;
@@ -32,11 +32,11 @@ public class DepartamentosController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Criar(Departamento departamento)
+    public async Task<IActionResult> Criar(DepartamentoInputDTO dto)
     {
         try
         {
-            var novo = await _service.CriarAsync(departamento);
+            var novo = await _service.CriarAsync(dto);
             return CreatedAtAction(nameof(ObterPorId), new { id = novo.Id }, novo);
         }
         catch (ArgumentException ex)
@@ -46,9 +46,9 @@ public class DepartamentosController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Atualizar(int id, Departamento departamento)
+    public async Task<IActionResult> Atualizar(int id, DepartamentoInputDTO dto)
     {
-        var atualizado = await _service.AtualizarAsync(id, departamento);
+        var atualizado = await _service.AtualizarAsync(id, dto);
         if (atualizado == null) return NotFound("Departamento não encontrado.");
         return Ok(atualizado);
     }
